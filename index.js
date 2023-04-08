@@ -23,7 +23,8 @@ let notes = [
   },
 ];
 
-console.log();
+const phonebook = entries.entries;
+
 app.get("/", (req, res) => {
   res.send("<h1>Hello world </h1>");
 });
@@ -38,6 +39,15 @@ app.get("/info", (req, res) => {
   res.send(
     `The phonebook, as of ${rightNow}, holds info for ${numberOfEntries} people!`
   );
+});
+
+app.get("/api/people/:id", (req, res) => {
+  const entry = phonebook.find((person) => person.id == req.params.id);
+  if (entry) {
+    res.send(entry);
+  } else {
+    res.status(404).send("Person not found");
+  }
 });
 
 const PORT = 5173;
