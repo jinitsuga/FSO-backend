@@ -23,7 +23,7 @@ let notes = [
   },
 ];
 
-const phonebook = entries.entries;
+let phonebook = entries.entries;
 
 app.get("/", (req, res) => {
   res.send("<h1>Hello world </h1>");
@@ -47,6 +47,14 @@ app.get("/api/people/:id", (req, res) => {
     res.send(entry);
   } else {
     res.status(404).send("Person not found");
+  }
+});
+
+app.delete("/api/people/:id", (req, res) => {
+  if (req.params.id > phonebook.length) {
+    res.status(404).send("Can't delete - person not found");
+  } else {
+    res.send(phonebook.filter((entry) => entry.id != req.params.id));
   }
 });
 
