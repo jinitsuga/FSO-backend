@@ -37,7 +37,7 @@ app.get("/info", (req, res) => {
   const numberOfEntries = entries.entries.length;
   const rightNow = new Date().toISOString().slice(0, 10);
   res.send(
-    `The phonebook, as of ${rightNow}, holds info for ${numberOfEntries} people!`
+    `The phonebook, as of ${rightNow}, holds about for ${numberOfEntries} people!`
   );
 });
 
@@ -56,6 +56,21 @@ app.delete("/api/people/:id", (req, res) => {
   } else {
     res.send(phonebook.filter((entry) => entry.id != req.params.id));
   }
+});
+
+app.post("/api/people", (req, res) => {
+  const newPerson = req.body;
+  newPerson.id = parseInt(Math.random() * 100000);
+  if (!newPerson.name || !newPerson.number) {
+    res.status(400).send("missing information, either name or number");
+  }
+  const repeatedEntry = phonebook.find((entry) => entry.name == newPerson.name);
+  if (repeatedEntry) {
+    res.status(409).send("Person already exists in phonebook");
+  }
+  phonebook.push(newPerson);
+  console.log(phonebook);
+  res.send(phonebook);
 });
 
 const PORT = 5173;
