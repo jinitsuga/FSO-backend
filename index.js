@@ -1,5 +1,6 @@
 const express = require("express");
 const entries = require("./phonebook");
+const morgan = require("morgan");
 
 const app = express();
 
@@ -23,7 +24,26 @@ let notes = [
   },
 ];
 
+morgan.token("postData", (req, res) => {
+  if (req.method == "POST") {
+    return JSON.stringify(req.body);
+  }
+});
+
+const requestLogger = (req, res, next) => {
+  console.log("Method:", req.method);
+  console.log("Path:", req.path);
+  console.log("Body:", req.body);
+  console.log("---");
+};
+const unknownEndpoint = (req, res, next) => {
+  res.status(404).send({ error: "Unknown endpoint" });
+};
+
 let phonebook = entries.entries;
+
+app.use(morgan("tiny"));
+app.use(morgan(":method :url :status :postData"));
 
 app.get("/", (req, res) => {
   res.send("<h1>Hello world </h1>");
@@ -72,6 +92,8 @@ app.post("/api/people", (req, res) => {
   console.log(phonebook);
   res.send(phonebook);
 });
+
+app.use(unknownEndpoint);
 
 const PORT = 5173;
 
