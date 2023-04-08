@@ -23,12 +23,21 @@ let notes = [
   },
 ];
 
+console.log();
 app.get("/", (req, res) => {
   res.send("<h1>Hello world </h1>");
 });
 
 app.get("/api/people", (req, res) => {
   res.send(entries);
+});
+
+app.get("/info", (req, res) => {
+  const numberOfEntries = entries.entries.length;
+  const rightNow = new Date().toISOString().slice(0, 10);
+  res.send(
+    `The phonebook, as of ${rightNow}, holds info for ${numberOfEntries} people!`
+  );
 });
 
 const PORT = 5173;
