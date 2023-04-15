@@ -1,6 +1,7 @@
 const express = require("express");
 const entries = require("./phonebook");
 const morgan = require("morgan");
+const cors = require("cors");
 
 const app = express();
 
@@ -44,6 +45,7 @@ let phonebook = entries.entries;
 
 app.use(morgan("tiny"));
 app.use(morgan(":method :url :status :postData"));
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("<h1>Hello world </h1>");
@@ -95,7 +97,7 @@ app.post("/api/people", (req, res) => {
 
 app.use(unknownEndpoint);
 
-const PORT = 5173;
+const PORT = 3001;
 
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
