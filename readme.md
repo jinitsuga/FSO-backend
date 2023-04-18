@@ -7,4 +7,4 @@ Here we go over the basic operations of an API, HTTP request types (including so
 
 Played a little bit with Morgan and familiarized myself some more with middleware, and tokens by creating a couple of custom ones and playing around with them.
 
-#### - Same origin policy and CORS (cross-origin resource sharing) -
+Added same origin policy and CORS (cross-origin resource sharing) - it as simple as just adding a middleware and cors was enabled
