@@ -2,7 +2,7 @@ const entries = [
   {
     id: 1,
     name: "Why a blog?",
-    number:
+    content:
       "Back when I had just started studying development (a bit more than a year and a half ago), something that helped me tremendously was, after a decent study session, sitting down and talking/writing about the things I had been working with (and there were A LOT of new concepts for someone with no logical background). This helped me realize-",
   },
   {
